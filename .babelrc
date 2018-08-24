@@ -1,0 +1,14 @@
+{
+	"presets": [
+		"react",
+		"stage-2",
+		[
+			"env", {
+				"targets": {
+					"browsers": "> 2%"
+				},
+				"include": [ "transform-es2015-arrow-functions", "es6.map" ]
+			}
+		]
+	]
+}
