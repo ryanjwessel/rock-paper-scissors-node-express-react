@@ -22,7 +22,7 @@ You can test the API using cURL thusly:
 
 ## The GUI
 
-All front end assets can be found in the `public` directory. Please use a front-end framework of your choice to build a single page application for playing the game. You may structure your app as you like and you may add to or modify any of the code in here. Visually, the design does not have to be perfect, but the game should look presentable.
+All front end assets can be found in the `public` directory. Please use ReactJS to build a single page application for playing the game. You may structure your app as you like and you may add to or modify any of the code in here. Visually, the design does not have to be perfect, but the game should look presentable.
 
 #### Requirements
 
