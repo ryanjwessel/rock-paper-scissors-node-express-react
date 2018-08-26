@@ -1,0 +1,23 @@
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+body {
+	background-color: #333;
+	color: #EEE;
+}
+
+.container {
+	margin: 50px auto;
+}
+
+.player-choices-wrapper {
+	margin: 20px 0;
+}
+
+button {
+	min-width: 100px;
+	margin: 0 10px;
+
+	img {
+		margin-bottom: 10px;
+	}
+}
