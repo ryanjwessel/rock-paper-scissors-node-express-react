@@ -1,4 +1,5 @@
 const path = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
@@ -7,13 +8,14 @@ module.exports = {
 		app: path.resolve( __dirname, 'src/Index.jsx' ),
 	},
 	plugins: [
+		new CleanWebpackPlugin(['public/dist']),
 		new HtmlWebpackPlugin({
 			template: 'src/index.html'
 		})
 	],
 	output: {
 		filename: '[name].bundle.js',
-		path: path.resolve(__dirname, 'public')
+		path: path.resolve(__dirname, 'public/dist')
 	},
 	module: {
 		rules: [
