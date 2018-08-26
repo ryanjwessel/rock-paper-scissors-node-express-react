@@ -15,7 +15,7 @@ import './styles/main.scss';
 
 import {
 	setPlayerChoice,
-	// startGame,
+	startGame,
 	// updateGameHistory,
 } from './actions';
 
@@ -33,7 +33,7 @@ class App extends Component {
 	}
 
 	render() {
-		const { state } = this.props;
+		const { state, dispatch } = this.props;
 		const { playerChoice } = state;
 		const choices = [ 'Rock', 'Paper', 'Scissors' ];
 
@@ -65,7 +65,7 @@ class App extends Component {
 						className="btn btn-warning d-flex flex-column align-items-center"
 						disabled={ playerChoice === '' }
 						onClick={() => {
-
+							dispatch(startGame(playerChoice));
 						}}
 					>
 						<img src="images/Play.png" alt="Press button to play against the computer." />
