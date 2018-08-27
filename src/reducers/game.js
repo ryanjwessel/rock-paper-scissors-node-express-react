@@ -3,6 +3,7 @@ import {
 	RECEIVE_COMPUTER_CHOICE,
 	UPDATE_GAME_HISTORY,
 	SET_PLAYER_CHOICE,
+	UPDATE_GAME_ERROR,
 } from '../actions';
 
 const initialState = {
@@ -10,8 +11,9 @@ const initialState = {
 		isFetching: false,
 		choice: '',
 	},
-	gameHistory: [],
+	gameHistory: {},
 	playerChoice: '',
+	error: '',
 };
 
 export function gameHistory(state = initialState.gameHistory, action) {
@@ -44,6 +46,15 @@ export function playerChoice(state = initialState.playerChoice, action) {
 	switch(action.type) {
 	case SET_PLAYER_CHOICE:
 		return action.choice;
+	default:
+		return state;
+	}
+}
+
+export function gameErrors(state = initialState.error, action) {
+	switch(action.type) {
+	case UPDATE_GAME_ERROR:
+		return action.error;
 	default:
 		return state;
 	}

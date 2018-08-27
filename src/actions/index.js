@@ -1,17 +1,35 @@
+import 'whatwg-fetch';
+
 export const SET_PLAYER_CHOICE = 'SET_PLAYER_CHOICE';
 export const REQUEST_COMPUTER_CHOICE = 'REQUEST_COMPUTER_CHOICE';
 export const RECEIVE_COMPUTER_CHOICE = 'RECEIVE_COMPUTER_CHOICE';
 export const UPDATE_GAME_HISTORY = 'UPDATE_GAME_HISTORY';
+export const UPDATE_GAME_ERROR = 'UPDATE_GAME_ERROR';
 
-function sendGameHistoryToReducer(updatedHistory) {
+export function updateGameError(error) {
 	return {
-		type: UPDATE_GAME_HISTORY,
-		updatedHistory
+		type: UPDATE_GAME_ERROR,
+		error,
 	};
 }
 
-export function updateGameHistory() {
+function sendGameHistoryToReducer(history) {
+	return {
+		type: UPDATE_GAME_HISTORY,
+		history
+	};
+}
+
+function updateGameHistory(gameResult) {
 	return (dispatch, getState) => {
+		// Here is where I push the most recent result onto the array of games in the history, and perhaps provide a unique identifier for each?
+		const state = getState();
+		
+		const updatedHistory = {
+			...state.gameHistory,
+			[ Date.now() ]: gameResult,
+		};
+
 		dispatch(sendGameHistoryToReducer((updatedHistory)));
 	};
 }
@@ -33,9 +51,28 @@ function receiveComputerChoice(choice) {
 export function startGame(playerChoice) {
 	return dispatch => {
 		dispatch(requestComputerChoice());
-		// return fire.database().ref(portfolioType).once('value').then((returnedItems) => {
-		dispatch(receiveComputerChoice(playerChoice));
-		// });
+		dispatch(updateGameError('')); // Reset game errors so UI reflects new game attempt.
+		
+		fetch('/match', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({choice:playerChoice.toLowerCase()}),
+		})
+			.then((response) => {
+				if (!response.ok) {
+					throw Error(response.statusText);
+				}
+				return response.json();
+			})
+			.then((gameResult) => {
+				dispatch(receiveComputerChoice(gameResult.computerChoice));
+				dispatch(updateGameHistory(gameResult));
+			})
+			.catch((error) => {
+				dispatch(updateGameError(error));
+			});
 	};
 }
 

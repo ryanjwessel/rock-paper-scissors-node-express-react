@@ -5,7 +5,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
 	entry: {
-		app: path.resolve( __dirname, 'src/Index.jsx' ),
+		app: ['promise-polyfill/src/polyfill', 'whatwg-fetch', path.resolve( __dirname, 'src/Index.jsx' )],
 	},
 	plugins: [
 		new CleanWebpackPlugin(['public/dist']),
