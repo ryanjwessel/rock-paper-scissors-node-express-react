@@ -6,8 +6,20 @@ const Choice = ( props ) => {
 		name,
 		selectWeapon,
 		currentSelection,
+		viewOnly,
 	} = props;
 
+	if(viewOnly) {
+		return (
+			<div
+				className='btn btn-outline-secondary d-flex flex-column align-items-center'
+			>
+				<img src={`images/${name}.png`} alt={`${name} icon`} />
+				{ name }
+			</div>
+		);
+	}
+	
 	return (
 		<button
 			type="button"
@@ -26,6 +38,7 @@ Choice.propTypes = {
 	name: PropTypes.string.isRequired,
 	selectWeapon: PropTypes.func.isRequired,
 	currentSelection: PropTypes.bool.isRequired,
+	viewOnly: PropTypes.bool,
 };
 
 export default Choice;
