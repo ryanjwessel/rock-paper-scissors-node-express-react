@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { connect } from 'react-redux';
@@ -16,7 +16,6 @@ import './styles/main.scss';
 import {
 	setPlayerChoice,
 	startGame,
-	// updateGameHistory,
 } from './actions';
 
 class App extends Component {
@@ -37,6 +36,22 @@ class App extends Component {
 		const { playerChoice } = state;
 		const choices = [ 'Rock', 'Paper', 'Scissors' ];
 
+		const PlayButton = () => {
+			return (
+				<button
+					type="button"
+					className="btn btn-warning d-flex flex-column align-items-center"
+					disabled={ playerChoice === '' }
+					onClick={() => {
+						dispatch(startGame(playerChoice));
+					}}
+				>
+					<img src="images/Play.png" alt="Press button to play against the computer." />
+					Play
+				</button>
+			);
+		};
+		
 		return (
 			<div className="container">
 				<div className="row justify-content-center text-center">
@@ -60,17 +75,31 @@ class App extends Component {
 					}
 				</div>
 				<div className="row justify-content-center play-button-wrapper">
-					<button
-						type="button"
-						className="btn btn-warning d-flex flex-column align-items-center"
-						disabled={ playerChoice === '' }
-						onClick={() => {
-							dispatch(startGame(playerChoice));
-						}}
-					>
-						<img src="images/Play.png" alt="Press button to play against the computer." />
-						Play
-					</button>
+				
+					{ state.gameErrors !== '' ? (
+						<Fragment>
+							<p>We&apos;re sorry, the Computer was not able to make a decision due to server issues.</p>
+							<PlayButton />
+						</Fragment>						
+					) : (!state.computerResponse.isFetching) ? (
+						<Fragment>
+							{ state.computerResponse.choice !== '' &&
+								<div className="col-12">
+									<p>The Computer chose</p>
+									<Choice
+										name={ state.computerResponse.choice }
+										viewOnly={ true }
+									/>
+								</div>
+							}
+							<div className="col-12">
+								<PlayButton />
+							</div>
+						</Fragment>
+					) : (
+						<div className="loader" />
+					) }
+
 				</div>
 			</div>
 		);

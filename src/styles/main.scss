@@ -15,9 +15,30 @@ body {
 
 button {
 	min-width: 100px;
+	max-width: 100px;
 	margin: 0 10px;
 
 	img {
 		margin-bottom: 10px;
 	}
+}
+
+div.btn {
+	text-transform: capitalize;
+	margin: 0 auto;
+}
+
+.loader {
+	display: block;
+	border: 10px solid #f3f3f3;
+	border-top: 10px solid #00caa2;
+	border-radius: 50%;
+	width: 100px;
+	height: 100px;
+	animation: spin 1s linear infinite;
+	margin: 0 auto;
+}
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
 }
