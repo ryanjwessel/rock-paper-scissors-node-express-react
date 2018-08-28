@@ -27,7 +27,7 @@ function updateGameHistory(gameResult) {
 		
 		const updatedHistory = {
 			...state.gameHistory,
-			[ Date.now() ]: gameResult,
+			[ state.computerResponse.lastUpdated ]: gameResult,
 		};
 
 		dispatch(sendGameHistoryToReducer((updatedHistory)));
