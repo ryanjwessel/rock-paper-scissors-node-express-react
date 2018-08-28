@@ -13,6 +13,10 @@ body {
 	margin: 20px 0;
 }
 
+.game-section-wrapper {
+	min-height: 300px; // This is so the content in the Game Board section is always vertically aligned so there is nice visual spacing on the page.
+}
+
 button {
 	width: 100px;
 	margin: 0 10px;
@@ -20,14 +24,25 @@ button {
 	img {
 		margin-bottom: 10px;
 	}
+
+	&.reset-button {
+		width: initial;
+	}
 }
 
 .computer-choice {
 	text-transform: capitalize;
 	width: 100px;
 	height: 100px;
+
+	img {
+		margin-bottom: 10px;
+	}
 }
 
+.game-intro-copy, .game-error {
+	min-height: 186px; // Hacky way of getting this section to mirror the height of the Computer choice and Game result display.
+}
 .loader {
 	display: block;
 	border: 10px solid #f3f3f3;

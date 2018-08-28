@@ -12,7 +12,7 @@ const Choice = ( props ) => {
 	if(viewOnly) {
 		return (
 			<div
-				className='d-flex flex-column align-items-center justify-content-center computer-choice'
+				className='d-flex flex-column align-items-center justify-content-center mx-auto computer-choice'
 			>
 				<img src={`images/${name}.png`} alt={`${name} icon`} />
 				{ name }
