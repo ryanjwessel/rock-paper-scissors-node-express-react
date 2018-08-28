@@ -2,6 +2,7 @@ import {
 	REQUEST_COMPUTER_CHOICE,
 	RECEIVE_COMPUTER_CHOICE,
 	UPDATE_GAME_HISTORY,
+	CLEAR_GAME_HISTORY,
 	SET_PLAYER_CHOICE,
 	UPDATE_GAME_ERROR,
 } from '../actions';
@@ -11,7 +12,11 @@ const initialState = {
 		isFetching: false,
 		choice: '',
 	},
-	gameHistory: {},
+	gameHistory: {
+		playerScore: 0,
+		computerScore: 0,
+		mostRecentResult: '',
+	},
 	playerChoice: '',
 	error: '',
 };
@@ -19,6 +24,7 @@ const initialState = {
 export function gameHistory(state = initialState.gameHistory, action) {
 	switch (action.type) {
 	case UPDATE_GAME_HISTORY:
+	case CLEAR_GAME_HISTORY:
 		return action.history;
 	default:
 		return state;

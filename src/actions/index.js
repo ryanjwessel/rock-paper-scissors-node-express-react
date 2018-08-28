@@ -4,6 +4,7 @@ export const SET_PLAYER_CHOICE = 'SET_PLAYER_CHOICE';
 export const REQUEST_COMPUTER_CHOICE = 'REQUEST_COMPUTER_CHOICE';
 export const RECEIVE_COMPUTER_CHOICE = 'RECEIVE_COMPUTER_CHOICE';
 export const UPDATE_GAME_HISTORY = 'UPDATE_GAME_HISTORY';
+export const CLEAR_GAME_HISTORY = 'CLEAR_GAME_HISTORY';
 export const UPDATE_GAME_ERROR = 'UPDATE_GAME_ERROR';
 
 export function updateGameError(error) {
@@ -25,12 +26,39 @@ function updateGameHistory(gameResult) {
 		// Here is where I push the most recent result onto the array of games in the history, and perhaps provide a unique identifier for each?
 		const state = getState();
 		
-		const updatedHistory = {
-			...state.gameHistory,
-			[ state.computerResponse.lastUpdated ]: gameResult,
-		};
+		const updatedScore = (gameResult.result !== 'tie') ? (
+			(gameResult.result === 'win') ? (
+				{
+					...state.gameHistory,
+					playerScore: state.gameHistory.playerScore + 1,
+					mostRecentResult: gameResult.result,
+				}
+			) : (
+				{
+					...state.gameHistory,
+					computerScore: state.gameHistory.computerScore + 1,
+					mostRecentResult: gameResult.result,
+				}
+			)
+		) : (
+			{
+				...state.gameHistory,
+				mostRecentResult: gameResult.result,
+			}
+		);
 
-		dispatch(sendGameHistoryToReducer((updatedHistory)));
+		dispatch(sendGameHistoryToReducer((updatedScore)));
+	};
+}
+
+export function clearGameHistory() {
+	return {
+		type: CLEAR_GAME_HISTORY,
+		history: {
+			playerScore: 0,
+			computerScore: 0,
+			mostRecentResult: '',
+		},
 	};
 }
 
