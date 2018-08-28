@@ -14,8 +14,7 @@ body {
 }
 
 button {
-	min-width: 100px;
-	max-width: 100px;
+	width: 100px;
 	margin: 0 10px;
 
 	img {
@@ -23,9 +22,10 @@ button {
 	}
 }
 
-div.btn {
+.computer-choice {
 	text-transform: capitalize;
-	margin: 0 auto;
+	width: 100px;
+	height: 100px;
 }
 
 .loader {

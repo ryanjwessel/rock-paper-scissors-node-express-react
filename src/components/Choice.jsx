@@ -12,7 +12,7 @@ const Choice = ( props ) => {
 	if(viewOnly) {
 		return (
 			<div
-				className='btn btn-outline-secondary d-flex flex-column align-items-center'
+				className='d-flex flex-column align-items-center justify-content-center computer-choice'
 			>
 				<img src={`images/${name}.png`} alt={`${name} icon`} />
 				{ name }
@@ -23,7 +23,7 @@ const Choice = ( props ) => {
 	return (
 		<button
 			type="button"
-			className={`btn btn-outline-secondary d-flex flex-column align-items-center ${currentSelection ? 'active' : ''}`}
+			className={`btn btn-outline-primary d-flex flex-column align-items-center ${currentSelection ? 'active' : ''}`}
 			onClick={ () => {
 				selectWeapon(name);
 			}}
