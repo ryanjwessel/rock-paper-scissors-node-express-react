@@ -33,34 +33,42 @@ class App extends Component {
 
 	render() {
 		const { state, dispatch } = this.props;
-		const { playerChoice } = state;
+		const { playerChoice, computerResponse, gameErrors, gameHistory } = state;
 		const choices = [ 'Rock', 'Paper', 'Scissors' ];
 
+		const getGameResult = () => {
+			if(gameHistory.hasOwnProperty(computerResponse.lastUpdated)) {
+				return gameHistory[computerResponse.lastUpdated].result;
+			} else {
+				return '';
+			}
+		};
+
 		const PlayButton = () => {
+			const buttonCopy = (Object.keys(gameHistory).length > 0 || gameErrors !== '') ? 'Play Again?' : 'Play';
+
 			return (
 				<button
 					type="button"
-					className="btn btn-warning d-flex flex-column align-items-center"
+					className="btn btn-danger d-flex flex-column align-items-center"
 					disabled={ playerChoice === '' }
 					onClick={() => {
 						dispatch(startGame(playerChoice));
 					}}
 				>
 					<img src="images/Play.png" alt="Press button to play against the computer." />
-					Play
+					{ buttonCopy }
 				</button>
 			);
 		};
 		
 		return (
 			<div className="container">
-				<div className="row justify-content-center text-center">
-					<div className="col">
-						<h1>Rock Paper Scissors!</h1>
-						<h2>Choose your weapon...</h2>
-					</div>
+				<div className="d-flex flex-column justify-content-center align-items-center">
+					<h1>Rock Paper Scissors!</h1>
+					<h2>Choose your weapon...</h2>
 				</div>
-				<div className="row justify-content-center text-center player-choices-wrapper">
+				<div className="d-flex justify-content-center align-items-center player-choices-wrapper">
 					{
 						choices.map( item => {
 							return (
@@ -74,33 +82,43 @@ class App extends Component {
 						})
 					}
 				</div>
-				<div className="row justify-content-center play-button-wrapper">
+				<div className="d-flex flex-column justify-content-center align-items-center game-section-wrapper">
 				
-					{ state.gameErrors !== '' ? (
+					{ gameErrors !== '' ? (
 						<Fragment>
 							<p>We&apos;re sorry, the Computer was not able to make a decision due to server issues.</p>
 							<PlayButton />
 						</Fragment>						
-					) : (!state.computerResponse.isFetching) ? (
+					) : (!computerResponse.isFetching) ? (
 						<Fragment>
-							{ state.computerResponse.choice !== '' &&
-								<div className="col-12">
-									<p>The Computer chose</p>
+							{ computerResponse.choice !== '' &&
+								<Fragment>
+									<h2>The Computer chose</h2>
 									<Choice
-										name={ state.computerResponse.choice }
+										name={ computerResponse.choice }
 										viewOnly={ true }
 									/>
-								</div>
+									<h2>You { getGameResult() }!</h2>
+								</Fragment>
 							}
-							<div className="col-12">
-								<PlayButton />
-							</div>
+							<PlayButton />
 						</Fragment>
 					) : (
 						<div className="loader" />
 					) }
 
 				</div>
+				{ Object.keys(gameHistory).length > 0 &&
+					<div className="d-flex flex-column justify-content-center align-items-center game-section-wrapper">
+						<h2>Scoreboard</h2>
+
+						{
+							Object.keys(gameHistory).map(game => {
+								<p>{ gameHistory[game].result }</p>;
+							})
+						}
+					</div>
+				}
 			</div>
 		);
 	}
