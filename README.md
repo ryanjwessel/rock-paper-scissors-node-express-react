@@ -26,4 +26,4 @@ The major difference between Flux/Redux and MVC is that MVC allows for **bidirec
 
 **src/** is where all of the React/Redux/SCSS code lives. When the start command is run then webpack bundles all of these files for you and delivers the bundled versions to the **public/dist/** directory.
 
-**routes/** contains the logic for the actual Rock Paper Scissors game. It accepts a POST request at **localhost:3000** and returns the Computer's response with simulated latency. There is also a 1 in 10 chance that it will serve a **500: Internal Server Error**.
+**routes/** contains the logic for the actual Rock Paper Scissors game. It accepts a POST request at **localhost:3000/match** and returns the Computer's response with simulated latency. There is also a 1 in 10 chance that it will serve a **500: Internal Server Error**.
