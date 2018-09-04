@@ -2,6 +2,10 @@
 
 This repository contains a simple Node/Express server with a React/Redux UI for playing Rock Paper Scissors.
 
+## First things first
+
+Run **npm install** to install the necessary dependencies for this project.
+
 ## Starting the server
 
 In order to fire up the server simply run **npm start** from this directory in your command line. This bundles the React/Redux/Javascript/SCSS files then puts them in the **public/dist** folder, and then starts up the Node/Express server. You can access the project at **localhost:3000**.
